@@ -1,0 +1,13 @@
+/**
+ * Given a string of words, separated by a single space,
+ * reverse the words in the String. You can assume that there is 
+ * no leading or trailing spaces.
+ * input = "Man bites dog"
+ * output = "dog bites man"
+ * 
+ * @author ppanesar
+ *
+ */
+public class ReverseWords {
+
+}

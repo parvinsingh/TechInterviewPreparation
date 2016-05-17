@@ -1,0 +1,40 @@
+import java.util.HashSet;
+import java.util.LinkedList;
+
+
+public class DeleteDuplicates {
+
+	private static void deleteDup(LinkedList n){
+		//This code runs in O(1) space but O(N^2) time.
+		if(n == null) return;
+		LinkedList current = n;
+		while (current != null){
+			LinkedList runner = current;
+			while(runner.next != null){
+				if(runner.next.data = current.data){
+					runner.next = runner.next.next;
+				}else{
+					runner = runner.next;
+				}
+			}
+			current = current.next;
+		}
+	}
+	
+	private static void deleteDupsSet(LinkedList n){
+		HashSet<Integer> set = new HashSet<Integer>();
+		LinkedList previous = null;
+		while(n!=null){
+			if(set.contains(n.data)){
+				previous.next = n.next;
+			}else{
+				set.add(n.data);
+				previous = n;
+			}
+			n= n.next;
+		}
+	}
+}
+
+
+

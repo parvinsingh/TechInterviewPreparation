@@ -1,0 +1,50 @@
+import java.util.LinkedHashMap;
+
+
+public class FirstUniqueCharacter {
+	
+	public static void main(String args[]){
+		String input = "ab";
+		findUniqueCharacter(input);
+	}
+
+	private static void findUniqueCharacter(String input){
+		if(input==null || input.length()==0){
+			System.out.println("Input is empty or null");
+			return;
+		}
+		input = input.trim();
+		//linkedHashMap preserves the order of insertion
+		LinkedHashMap<Character, Integer> counterMap = new LinkedHashMap<Character, Integer>();
+		if(input.length()==1){
+			System.out.println("The first unique character is " + input);
+			return;
+		}else{
+			for(int i=0; i<input.length(); i++){
+				if(!counterMap.containsKey(input.charAt(i))){
+					//containsKey
+					counterMap.put(input.charAt(i), 1);
+				}else{
+					int c = counterMap.get(input.charAt(i));
+					counterMap.put(input.charAt(i), c+1);
+				}
+			}
+		}
+		
+		for(Character ch: input.toCharArray()){
+			if(counterMap.get(ch)==1){
+				System.out.println("The first unique character is " + ch);
+				return;
+			}
+		}
+		System.out.println("There are no unique characters");
+		return;
+		
+	}
+	
+	/*
+	 * Find the smallest unique integer in a random integer array with 
+	 * possible duplicates.
+	 */
+	
+}

@@ -1,0 +1,219 @@
+/**
+ * Given an array A, how would you create an array B where for each i from 0 to n, 
+b[i] = a[0] * a[1] * ... * a[n-1] /a[i] 
+You should do this in O(n) time without using division. 
+
+As an example, if A = {1,2,3,4}, B should be (24,12,8,6).
+ * @author ppanesar
+ *
+ */
+public class ArrayQuestions {
+
+	//Using Inner class to return the indices and values
+	class IndexValue{
+		int highIndex;
+		int lowIndex;
+		int maxValue;
+	}	
+	
+	public static void main(String[] args){
+//		int[] arr = {2, 5, 1, 7, 3, 9} ;
+//		ArrayQuestions aq = new ArrayQuestions();
+//		ArrayQuestions.IndexValue value = aq.new IndexValue();
+//		IndexValue maxValue = findMaxDiff(arr, value);
+//		System.out.println(maxValue.maxValue);
+		int[] arr = {3,7,8,5,2,1,9,5,4};
+//		mergeSortingAlgo(arr);
+		quickSort(arr);
+	}
+	
+	//Find the intersection of two input arrays
+	
+	
+	//find the max difference in a given array of integers,
+	//the larger number always appears after the smaller number
+	private static IndexValue findMaxDiff(int[] inputArr, IndexValue value){
+		int input = inputArr[0];
+		int lowIndex = 0;
+		int highIndex = 0;
+		int maxDiff = 0;
+		for(int i=1; i<inputArr.length; i++){
+			if(inputArr[i]>input){
+				int currDiff = inputArr[i]-input;
+				if(currDiff >= maxDiff){
+					maxDiff = currDiff;
+					highIndex = i;
+				}
+			}else{
+				input=inputArr[i];
+				lowIndex = i;
+			}
+		}
+		value.lowIndex = lowIndex;
+		value.highIndex = highIndex;
+		value.maxValue = maxDiff;
+		return value;
+	}
+	
+	//Find the largest sequence in the array
+	public static int[] largestSequence(int[] arr){
+		int maxStartIndex = 0;
+		int maxEndIndex = 0;
+		int maxStartIndexSoFar = 0;
+		//int maxStartValue = arr[0];
+		int maxEndValue = arr[0];
+		int maxSum = arr[0];//max so far
+		for(int i=1; i<arr.length; i++){
+			if(maxEndValue<0){
+				maxEndValue = arr[i];
+				maxStartIndexSoFar = i;
+			}else{
+				maxEndValue = maxEndValue + arr[i];
+			}
+			if(maxEndValue > maxSum){
+				maxSum = maxEndValue;
+				maxEndIndex = i;
+				maxStartIndex = maxStartIndexSoFar;
+			}
+		}
+		int[] result = new int[arr.length];
+	    int index=0;
+	    for(int j=maxStartIndex; j<maxEndIndex; j++){
+	      result[index]=arr[j];
+	      index++;
+	    }
+	  return result;
+	}
+	
+	
+	//Finding the longest word from the given array of words
+	private String findLongestWord(String[] inputWords, char[] letters){
+		int maxWordLength = 0;
+		String maxWord = null;
+		int[] charCount = new int[26];//integer array to keep the count at the letter index
+		for(char ch: letters){
+			int index = ch - 'a';
+			charCount[index]++;
+		}
+		//Loop over the array of Strings
+		
+		for(String word: inputWords){
+			if(word==null || word.length() > letters.length){
+				continue; // move on to the next word
+			}
+			boolean legalWord = true;
+			int[] wordCount = new int[26];
+			for(char ch: word.toCharArray()){
+				int index = ch - 'a';
+				wordCount[index]++;
+				if(wordCount[index]>charCount[index]){
+					legalWord = false;
+					break;
+				}
+			}
+			if(legalWord && maxWordLength < word.length()){
+				maxWordLength = word.length();
+				maxWord = word; 
+			}
+		}
+		return maxWord;
+	}
+	
+	//MergeSort an array of integers
+	//O(n logN) time complexity
+	//O(N) space complexity
+	public static void mergeSortingAlgo(int[] input){
+		int[] helperArr = new int[input.length];
+		mergeSort(input, 0, input.length-1, helperArr);
+		for(int i=0; i<input.length-1; i++){
+			System.out.println(input[i]);
+		}
+	}
+	
+	private static void mergeSort(int[] arr, int start, int end, int[] helper){
+		if(start<end){
+			int mid = (start+end)/2;
+			mergeSort(arr, start, mid, helper);//left half
+			mergeSort(arr, mid+1, end, helper);//right half
+			merge(arr, start, end, mid, helper);
+		}
+	}
+	
+	private static void merge(int[] arr, int start, int end, int mid, int[] helper){
+		//copying the values into a temporary array
+		for(int i=start; i<=end; i++){
+			helper[i] = arr[i];
+		}
+		int left = start;
+		int right = mid+1;
+		int current = start;//this is for reading the original array
+		while(left<=mid && right<=end){
+			if(helper[left]<=helper[right]){
+				arr[current] = helper[left];
+				left++;
+			}else{
+				arr[current] = helper[right];
+				right++;
+			}
+			current++;
+		}
+		if(left<=mid){
+			arr[current] = arr[left];
+			current++;
+			left++;
+		}
+	}
+	
+	//QuickSort time: O(nlog n) average, worst O(n^2). Memory:O(log N)
+	 
+	    public static void quickSort(int[] inputArr) {
+	         
+	        if (inputArr == null || inputArr.length == 0) {
+	            return;
+	        }
+	        quickSort(inputArr, 0, inputArr.length-1);
+	        for(int i=0; i<inputArr.length; i++){
+				System.out.println(inputArr[i]);
+			}
+	    }
+	 
+	    private static void quickSort(int[] array, int lowerIndex, int higherIndex) {
+	         
+	        int i = lowerIndex;
+	        int j = higherIndex;
+	        // calculate pivot number, I am taking pivot as middle index number
+	        int pivot = array[lowerIndex+(higherIndex-lowerIndex)/2];
+	        // Divide into two arrays
+	        while (i <= j) {
+	            /**
+	             * In each iteration, we will identify a number from left side which
+	             * is greater then the pivot value, and also we will identify a number
+	             * from right side which is less then the pivot value. Once the search
+	             * is done, then we exchange both numbers.
+	             */
+	            while (array[i] < pivot) {
+	                i++;
+	            }
+	            while (array[j] > pivot) {
+	                j--;
+	            }
+	            if (i <= j) {
+	                exchangeNumbers(array, i, j);
+	                //move index to next position on both sides
+	                i++;
+	                j--;
+	            }
+	        }
+	        // call quickSort() method recursively
+	        if (lowerIndex < j)
+	            quickSort(array, lowerIndex, j);
+	        if (i < higherIndex)
+	            quickSort(array, i, higherIndex);
+	    }
+	 
+	    private static void exchangeNumbers(int[] array, int i, int j) {
+	        int temp = array[i];
+	        array[i] = array[j];
+	        array[j] = temp;
+	    }
+	   }

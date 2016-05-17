@@ -1,0 +1,83 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Scanner;
+
+
+public class findIntegerPairs {
+
+	class Pair{
+
+		private int element1;
+		private int element2;
+	}
+	
+	static int numberOfPairs(int[] a, long k) {
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>(); 
+		HashSet<Integer> sorted = new HashSet<Integer>();
+		HashSet<Pair> pairs = new HashSet<Pair>();
+		
+		for(int i: a){
+			if(!sorted.contains(i)){
+				sorted.add(i);
+			}
+		}
+		int count=0;
+		for(int j=0; j<a.length; j++){
+			int supplement = (int) (k-a[j]);
+			if(map.containsKey(supplement)){
+				if(addToSet(pairs, new Pair(a[j],supplement))){
+					count++;
+				}
+			}
+		}
+		return count;
+    }
+	
+	private static boolean addToSet(HashSet<Pair> pairs, Pair pair) {
+		if (!pairs.contains(pair) && !pairs.contains(reversePair(pair))) {
+		      pairs.add(pair);
+		      return true;
+		    }
+		return false;
+	}
+
+	private static Object reversePair(Pair original) {
+		return new Pair(original.element2, original.element1);
+	}
+
+	public static void main(String args[]){
+		int[] arr = {1,3,1,1,6,46,2,46};
+		int count = numberOfPairs(arr, 47);
+		System.out.print(count);
+	}
+	
+//	public static void main(String[] args) throws IOException{
+//        Scanner in = new Scanner(System.in);
+//        final String fileName = System.getenv("OUTPUT_PATH");
+//        BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+//        int res;
+//        
+//        int _a_size = 0;
+//        _a_size = Integer.parseInt(in.nextLine().trim());
+//        int[] _a = new int[_a_size];
+//        int _a_item;
+//        for(int _a_i = 0; _a_i < _a_size; _a_i++) {
+//            _a_item = Integer.parseInt(in.nextLine().trim());
+//            _a[_a_i] = _a_item;
+//        }
+//        
+//        long _k;
+//        _k = Long.parseLong(in.nextLine().trim());
+//        
+//        res = numberOfPairs(_a, _k);
+//        bw.write(String.valueOf(res));
+//        bw.newLine();
+//        
+//        bw.close();
+//    }
+}
+	
+

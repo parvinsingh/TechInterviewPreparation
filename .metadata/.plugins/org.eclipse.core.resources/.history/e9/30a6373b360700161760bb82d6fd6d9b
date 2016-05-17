@@ -1,0 +1,14 @@
+/**
+ * Given an array A, how would you create an array B where for each i from 0 to n, 
+b[i] = a[0] * a[1] * ... * a[n-1] /a[i] 
+You should do this in O(n) time without using division. 
+
+As an example, if A = {1,2,3,4}, B should be (24,12,8,6).
+ * @author ppanesar
+ *
+ */
+public class ArrayQuestions {
+
+	
+	
+}

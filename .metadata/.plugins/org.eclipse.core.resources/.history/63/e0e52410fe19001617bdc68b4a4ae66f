@@ -1,0 +1,58 @@
+import java.util.*;
+
+class TopStudent implements Comparator{
+   private int id;
+   private String fname;
+   private double cgpa;
+   public TopStudent(int id, String fname, double cgpa) {
+      super();
+      this.id = id;
+      this.fname = fname;
+      this.cgpa = cgpa;
+   }
+   public int getId() {
+      return id;
+   }
+   public String getFname() {
+      return fname;
+   }
+   public double getCgpa() {
+      return cgpa;
+   }
+   
+	@Override
+	public int compare(TopStudent s1, TopStudent s2) {
+		if(compare(s1.cgpa, s2.cgpa)==0){
+			if(compare(s1.fname, s2.fname)==0){
+				return compare(s1.id, s2.id);
+			}else{
+				return compare(s1.fname, s2.fname);
+			}
+		}else{
+			return compare(s1.cgpa, s2.cgpa);
+		}
+		return -1;
+	}
+
+	public static void main(String[] args){
+	      Scanner in = new Scanner(System.in);
+	      int testCases = Integer.parseInt(in.nextLine());
+	      
+	      List<TopStudent> studentList = new ArrayList<TopStudent>();
+	      while(testCases>0){
+	         int id = in.nextInt();
+	         String fname = in.next();
+	         double cgpa = in.nextDouble();
+	         
+	         TopStudent st = new TopStudent(id, fname, cgpa);
+	         studentList.add(st);
+	         
+	         testCases--;
+	      }
+	      
+	         for(TopStudent st: TopstudentList){
+	         System.out.println(st.getFname());
+	      }
+	   }
+}
+

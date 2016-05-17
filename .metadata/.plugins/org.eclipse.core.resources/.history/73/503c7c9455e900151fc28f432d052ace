@@ -1,0 +1,16 @@
+
+
+
+public class DeleteDuplicates {
+
+	private static void deleteDup(LinkedList n){
+		if(n == null) return;
+		LinkedList current = n;
+		while (current != null){
+			LinkedList runner = current;
+			while(runner.next != null){
+				
+			}
+		}
+	}
+}

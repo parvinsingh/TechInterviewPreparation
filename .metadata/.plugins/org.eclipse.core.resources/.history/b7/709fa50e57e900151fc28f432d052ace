@@ -1,0 +1,13 @@
+
+public class LinkedListNode {
+
+	static int m_data;
+	static LinkedListNode prev;
+	static LinkedListNode next;
+	
+	public LinkedListNode(int data){
+		m_data = data;
+		next = null;
+	}
+	
+}

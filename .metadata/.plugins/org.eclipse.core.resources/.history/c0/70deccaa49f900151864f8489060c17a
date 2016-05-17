@@ -1,0 +1,32 @@
+
+public class InsertInSortedList {
+
+	private LinkedListNode insert(LinkedListNode head, int data){
+		if(head==null){
+			LinkedListNode newHead = new LinkedListNode(data);
+			newHead.next = null;
+			return newHead;
+		}else if(head.data > data){
+			LinkedListNode newHead = new LinkedListNode(data);
+			newHead.next = head;
+			return newHead;
+		}else {
+			LinkedListNode current = head;
+			LinkedListNode previous = null;
+			while(current.next!=null){
+				if(data > current.data){
+					previous = current;
+					current = current.next;
+				}else{
+					LinkedListNode newNode = new LinkedListNode(data);
+					previous.next = newNode;
+					newNode.next = current;
+					return head;
+				}
+			}
+			current.next = new LinkedListNode(data);
+			return head;
+		}
+	}
+	
+}
